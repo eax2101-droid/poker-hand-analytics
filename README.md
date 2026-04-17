@@ -40,6 +40,9 @@ This project builds a full data pipeline to analyze poker hand histories and cla
 
 ## Key Visualization
 
+![Player Styles](images/vpip_pfr_plot.png)
+
+
 ### Player Style Map (VPIP vs PFR)
 
 Players are classified into four archetypes:
@@ -50,6 +53,7 @@ Players are classified into four archetypes:
 * Loose Aggressive
 
 This provides an intuitive way to compare player tendencies and identify behavioral patterns.
+
 
 ---
 
