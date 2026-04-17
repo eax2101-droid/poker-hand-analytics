@@ -105,9 +105,17 @@ notebooks/poker_analysis.ipynb
 
 ---
 
-## Example Insight
+## Example Insights
 
-Loose-aggressive players (high VPIP, high PFR) tend to dominate action, while tight-passive players participate less frequently and avoid aggressive lines. The visualization highlights clear clustering of player styles across sessions.
+- The VPIP–PFR framework clearly separates players into distinct behavioral archetypes (tight/passive, tight/aggressive, loose/passive, loose/aggressive), enabling quick identification of play styles.
+
+- Rohan emerges as a strongly loose-aggressive player, combining high hand participation with consistent preflop pressure. This type of player can often be exploited by playing more selectively and capitalizing on over-aggression.
+
+- Loose-passive players tend to enter many hands but apply little pressure, making them more susceptible to value-heavy and aggressive betting strategies.
+
+- There is significant variation in postflop follow-through, with a ~35 percentage point spread (40%–74%) in c-bet rates. Players with high preflop aggression but low c-bet rates present opportunities for counterplay through tactics like floating or check-raising.
+
+- Secondary metrics such as showdown win rate help distinguish between aggressive but effective play and overly loose strategies.
 
 ---
 

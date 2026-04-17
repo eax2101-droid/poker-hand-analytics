@@ -213,14 +213,30 @@ def compute_cbet_rate(actions_df):
     con.register("actions_df", actions_df)
 
     query = """
-    WITH first_flop AS (
+    WITH board_cards AS (
         SELECT
             hand_id,
-            MIN(timestamp) AS flop_time
+            timestamp,
+            ROW_NUMBER() OVER (
+                PARTITION BY hand_id
+                ORDER BY timestamp
+            ) AS board_stage
         FROM actions_df
         WHERE action_name = 'deal_board'
-        GROUP BY hand_id
     ),
+
+    flop_window AS (
+        SELECT
+            f.hand_id,
+            f.timestamp AS flop_time,
+            t.timestamp AS turn_time
+        FROM board_cards f
+        LEFT JOIN board_cards t
+            ON f.hand_id = t.hand_id
+           AND t.board_stage = 2
+        WHERE f.board_stage = 1
+    ),
+
     preflop_raises AS (
         SELECT
             a.hand_id,
@@ -231,26 +247,32 @@ def compute_cbet_rate(actions_df):
                 ORDER BY a.timestamp DESC
             ) AS rn
         FROM actions_df a
-        JOIN first_flop f
-            ON a.hand_id = f.hand_id
-        WHERE a.timestamp < f.flop_time
+        JOIN flop_window fw
+            ON a.hand_id = fw.hand_id
+        WHERE a.timestamp < fw.flop_time
           AND a.action_name = 'bet_or_raise'
+          AND a.player_name IS NOT NULL
     ),
+
     last_preflop_raiser AS (
         SELECT hand_id, player_name
         FROM preflop_raises
         WHERE rn = 1
     ),
+
     flop_bets AS (
         SELECT DISTINCT
             a.hand_id,
             a.player_name
         FROM actions_df a
-        JOIN first_flop f
-            ON a.hand_id = f.hand_id
-        WHERE a.timestamp > f.flop_time
+        JOIN flop_window fw
+            ON a.hand_id = fw.hand_id
+        WHERE a.timestamp > fw.flop_time
+          AND (fw.turn_time IS NULL OR a.timestamp < fw.turn_time)
           AND a.action_name = 'bet_or_raise'
+          AND a.player_name IS NOT NULL
     )
+
     SELECT
         l.player_name,
         COUNT(*) AS opportunities,
