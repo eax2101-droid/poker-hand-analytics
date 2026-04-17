@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project builds a full data pipeline to analyze poker hand histories and classify player behavior using industry-standard poker metrics. Starting from raw JSON logs, the project transforms unstructured data into structured tables and computes player-level statistics to understand play style, aggression, and decision-making tendencies.
+This project builds a full data pipeline to analyze poker hand histories and classify player behavior using industry-standard poker metrics. Starting from raw JSON logs from the Poker Now Website, the project transforms unstructured data into structured tables and computes player-level statistics to understand play style, aggression, and decision-making tendencies.
 
 ---
 
@@ -110,6 +110,15 @@ notebooks/poker_analysis.ipynb
 Loose-aggressive players (high VPIP, high PFR) tend to dominate action, while tight-passive players participate less frequently and avoid aggressive lines. The visualization highlights clear clustering of player styles across sessions.
 
 ---
+
+## Data Source & Limitations
+
+The dataset consists of poker hand histories from PokerNow’s game replayer, based on multiple personal gameplay sessions.
+
+The data pipeline is tailored to PokerNow’s JSON schema, so hand histories from other platforms may require adjustments to the parsing logic.
+
+As the dataset reflects a limited player pool, the analysis is intended to demonstrate methodology rather than provide generalizable conclusions.
+
 
 ## Author
 
