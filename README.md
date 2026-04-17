@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project builds a full data pipeline to analyze poker hand histories and classify player behavior using industry-standard poker metrics. Starting from raw JSON logs from the Poker Now Website, the project transforms unstructured data into structured tables and computes player-level statistics to understand play style, aggression, and decision-making tendencies.
+Built an end-to-end data pipeline to analyze poker hand histories and classify player behavior using industry-standard poker metrics. Starting from raw JSON logs exported from PokerNow’s game replayer, the project transforms unstructured data into structured tables and computes player-level statistics to understand play style, aggression, and decision-making tendencies.
 
 ---
 
@@ -18,23 +18,12 @@ This project builds a full data pipeline to analyze poker hand histories and cla
 
 ## Metrics Implemented
 
-* **VPIP (Voluntarily Put Money in Pot)**
-  Measures how often a player enters a hand
-
-* **PFR (Preflop Raise Rate)**
-  Measures preflop aggression
-
-* **Aggression Factor (AF)**
-  Ratio of bets/raises to calls postflop
-
-* **WTSD (Went to Showdown)**
-  Frequency of reaching showdown
-
-* **Showdown Win Rate (WSD)**
-  Percentage of showdowns won (approximated from action logs)
-
-* **C-Bet Rate**
-  Frequency of continuation betting after raising preflop
+- **VPIP (Voluntarily Put Money in Pot):** measures how often a player voluntarily enters a hand preflop
+- **PFR (Preflop Raise Rate):** measures preflop aggression
+- **Aggression Factor (AF):** ratio of bets and raises to calls postflop
+- **WTSD (Went to Showdown):** frequency of reaching showdown
+- **Showdown Win Rate (WSD):** percentage of showdowns won, approximated from action logs
+- **C-Bet Rate:** frequency of continuation betting after raising preflop
 
 ---
 
