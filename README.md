@@ -109,4 +109,4 @@ Loose-aggressive players (high VPIP, high PFR) tend to dominate action, while ti
 
 ## Author
 
-Ethan Xiao
+Enoch Xiao
