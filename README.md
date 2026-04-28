@@ -52,8 +52,8 @@ This provides an intuitive way to compare player tendencies and identify behavio
 2. Normalize into structured tables:
 
    * `actions_df`: event-level betting actions
-   * `players_df`: hand-level metadata
-   * `hands_df`: unique player identities
+   * `players_df`: unique player identities
+   * `hands_df`: hand-level metadata
    * `hand_players_df`: player participation per hand
 
 3. Clean and standardize player names
