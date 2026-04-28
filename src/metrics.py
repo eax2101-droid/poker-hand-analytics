@@ -126,39 +126,70 @@ def compute_wtsd(actions_df, hand_players_df):
     con.register("hand_players_df", hand_players_df)
 
     query = """
-    WITH hand_has_showdown AS (
+    -- Hands that reached at least flop
+    WITH postflop_hands AS (
+        SELECT DISTINCT hand_id
+        FROM actions_df
+        WHERE action_name = 'deal_board'
+    ),
+
+    -- Hands that reached river (3 board deals)
+    river_hands AS (
         SELECT hand_id
         FROM actions_df
         WHERE action_name = 'deal_board'
         GROUP BY hand_id
         HAVING COUNT(*) >= 3
     ),
+
+    -- Players who folded in a hand
     player_folds AS (
         SELECT DISTINCT hand_id, player_name
         FROM actions_df
         WHERE action_name = 'fold'
     ),
+
+    -- All player-hand pairs
     player_hands AS (
         SELECT DISTINCT hand_id, player_name
         FROM hand_players_df
+    ),
+
+    -- Only hands where player saw flop
+    player_postflop_hands AS (
+        SELECT p.hand_id, p.player_name
+        FROM player_hands p
+        JOIN postflop_hands pf
+          ON p.hand_id = pf.hand_id
     )
+
     SELECT
         p.player_name,
+
+        -- numerator: reached river AND didn't fold
         COUNT(DISTINCT CASE
-            WHEN h.hand_id IS NOT NULL AND f.hand_id IS NULL
+            WHEN r.hand_id IS NOT NULL AND f.hand_id IS NULL
             THEN p.hand_id
         END) AS showdown_hands,
-        COUNT(DISTINCT p.hand_id) AS total_hands,
+
+        -- denominator: saw flop
+        COUNT(DISTINCT p.hand_id) AS postflop_hands,
+
+        -- WTSD
         COUNT(DISTINCT CASE
-            WHEN h.hand_id IS NOT NULL AND f.hand_id IS NULL
+            WHEN r.hand_id IS NOT NULL AND f.hand_id IS NULL
             THEN p.hand_id
         END) * 1.0 / COUNT(DISTINCT p.hand_id) AS wtsd_percent
-    FROM player_hands p
-    LEFT JOIN hand_has_showdown h
-        ON p.hand_id = h.hand_id
+
+    FROM player_postflop_hands p
+
+    LEFT JOIN river_hands r
+        ON p.hand_id = r.hand_id
+
     LEFT JOIN player_folds f
         ON p.hand_id = f.hand_id
        AND p.player_name = f.player_name
+
     GROUP BY p.player_name
     HAVING COUNT(DISTINCT p.hand_id) > 50
     ORDER BY wtsd_percent DESC

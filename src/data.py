@@ -83,24 +83,6 @@ def build_actions_df(all_hands):
 
     return actions_df
 
-    actions_df = pd.DataFrame(all_rows)
-
-    actions_df = actions_df[
-        actions_df["action_name"].notna() &
-        ~actions_df["action_name"].str.contains("system", na=False)
-    ].copy()
-
-    return actions_df
-
-    actions_df = pd.DataFrame(all_rows)
-
-    actions_df = actions_df[
-        actions_df["action_name"].notna() &
-        ~actions_df["action_name"].str.contains("system", na=False)
-    ].copy()
-
-    return actions_df
-
 
 def validate_actions_df(df):
     errors = []
