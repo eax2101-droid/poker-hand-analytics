@@ -51,9 +51,11 @@ This provides an intuitive way to compare player tendencies and identify behavio
 1. Load raw JSON hand histories
 2. Normalize into structured tables:
 
-   * `actions_df`
-   * `players_df`
-   * `hand_players_df`
+   * `actions_df`: event-level betting actions
+   * `players_df`: hand-level metadata
+   * `hands_df`: unique player identities
+   * `hand_players_df`: player participation per hand
+
 3. Clean and standardize player names
 4. Compute player-level metrics using SQL (DuckDB) and Pandas
 5. Merge metrics into a final player summary table
