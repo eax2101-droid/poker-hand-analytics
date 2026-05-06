@@ -86,6 +86,8 @@ pip install -r requirements.txt
 notebooks/poker_analysis.ipynb
 ```
 
+Note: Raw PokerNow hand-history data is not included in this repository for privacy reasons. The notebook demonstrates the full parsing, cleaning, metric computation, and visualization workflow using the project’s internal data structure.
+
 ---
 
 ## Notes
@@ -118,6 +120,17 @@ The data pipeline is tailored to PokerNow’s JSON schema, so hand histories fro
 
 As the dataset reflects a limited player pool, the analysis is intended to demonstrate methodology rather than provide generalizable conclusions.
 
+---
+
+## Future Improvements
+
+This project currently focuses on building the core data pipeline and analytics framework before scaling to a larger dataset. Future improvements could include:
+
+- Adding more PokerNow sessions to improve sample size and metric reliability
+- Building automated data validation checks for missing fields, duplicate records, and timestamp consistency
+- Refactoring the notebook workflow into reusable Python scripts
+- Adding clustering or predictive modeling to group players by behavioral similarity
+- Expanding support for hand histories from other poker platforms
 
 ## Author
 
